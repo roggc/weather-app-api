@@ -41,14 +41,25 @@ app.get("/timemachine", async (req, res) => {
   res.json(data);
 });
 
+// const firebaseConfig = {
+//   apiKey: `${process.env.FIREBASE_API_KEY}`,
+//   authDomain: "auth-19f5b.firebaseapp.com",
+//   databaseURL: "https://auth-19f5b.firebaseio.com",
+//   projectId: "auth-19f5b",
+//   storageBucket: "auth-19f5b.appspot.com",
+//   messagingSenderId: "1003273919912",
+//   appId: "1:1003273919912:web:26f8acbf74b0487112119d",
+// };
+
 const firebaseConfig = {
   apiKey: `${process.env.FIREBASE_API_KEY}`,
-  authDomain: "auth-19f5b.firebaseapp.com",
-  databaseURL: "https://auth-19f5b.firebaseio.com",
-  projectId: "auth-19f5b",
-  storageBucket: "auth-19f5b.appspot.com",
-  messagingSenderId: "1003273919912",
-  appId: "1:1003273919912:web:26f8acbf74b0487112119d",
+  authDomain: "totorotos-api.firebaseapp.com",
+  databaseURL: "https://totorotos-api.firebaseio.com",
+  projectId: "totorotos-api",
+  storageBucket: "totorotos-api.appspot.com",
+  messagingSenderId: "420388634894",
+  appId: "1:420388634894:web:81ab1952fcafbb8df8175f",
+  measurementId: "G-Y1RG51YTTR",
 };
 
 app.get("/firebase-config", (req, res) => {
