@@ -7,27 +7,33 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://nauseating-sense.surge.sh",
 };
 
 app.use(cors(corsOptions));
 
 const weatherForecastUrl = "api.openweathermap.org/data/2.5/onecall";
+const hereUrl = "geocode.search.hereapi.com";
 
-const getParamsString = (query) =>
+const getParamsStringForWeatherAPI = (query) =>
   Object.entries(query)
     .reduce((result, [key, value]) => result.concat(`${key}=${value}&`), "")
-    .concat(`appid=${process.env.API_KEY}`);
+    .concat(`appid=${process.env.WEATHER_API_KEY}`);
+
+const getParamsStringForHereAPI = (query) =>
+  Object.entries(query)
+    .reduce((result, [key, value]) => result.concat(`${key}=${value}&`), "")
+    .concat(`apiKey=${process.env.HERE_API_KEY}`);
 
 app.get("/current", async (req, res) => {
-  const queryString = getParamsString(req.query);
+  const queryString = getParamsStringForWeatherAPI(req.query);
   const resp = await fetch(`https://${weatherForecastUrl}?${queryString}`);
   const data = await resp.json();
   res.json(data);
 });
 
 app.get("/timemachine", async (req, res) => {
-  const queryString = getParamsString(req.query);
+  const queryString = getParamsStringForWeatherAPI(req.query);
   const resp = await fetch(
     `https://${weatherForecastUrl}/timemachine?${queryString}`
   );
@@ -47,6 +53,13 @@ const firebaseConfig = {
 
 app.get("/firebase-config", (req, res) => {
   res.json(firebaseConfig);
+});
+
+app.get("/here-coordinates", async (req, res) => {
+  const queryString = getParamsStringForHereAPI(req.query);
+  const resp = await fetch(`https://${hereUrl}/v1/geocode?${queryString}`);
+  const data = await resp.json();
+  res.json(data);
 });
 
 const port = process.env.PORT ?? 4000;
