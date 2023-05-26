@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://nauseating-sense.surge.sh",
+  origin: ["https://nauseating-sense.surge.sh", "http://localhost:3000"],
 };
 
 app.use(cors(corsOptions));
